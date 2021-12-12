@@ -11,6 +11,9 @@ abstract class AppColors {
   Color get textColor;
   Color get badColor;
   Color get border;
+  Color get title;
+  Color get subtitle;
+  Color get backButton;
 }
 
 class AppColorsImp implements AppColors {
@@ -43,4 +46,13 @@ class AppColorsImp implements AppColors {
 
   @override
   Color get background => Color(0xFFF7F7F7);
+
+  @override
+  Color get subtitle => Color(0xFF949B9C);
+
+  @override
+  Color get title => Color(0xFF1E1F20);
+
+  @override
+  Color get backButton => Color(0xFF000000);
 }
