@@ -6,10 +6,16 @@ class InputText extends StatelessWidget {
     Key? key,
     required this.label,
     required this.hint,
+    this.obscure = false,
+    this.onChanged,
+    this.validator,
   }) : super(key: key);
 
   final String label;
   final String hint;
+  final bool obscure;
+  final void Function(String)? onChanged;
+  final String? Function(String?)? validator;
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +34,13 @@ class InputText extends StatelessWidget {
             ),
           ),
           style: AppTheme.textStyles.input,
+          obscureText: obscure,
+          onChanged: onChanged,
+          validator: (value) {
+            if (validator != null) {
+              return validator!(value);
+            }
+          },
         ),
       ],
     );
