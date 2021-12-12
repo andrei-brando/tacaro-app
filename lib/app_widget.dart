@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tacaro/modules/login/login_page.dart';
+import 'package:tacaro/modules/create_account/create_account_page.dart';
 import 'package:tacaro/modules/splash/splash_page.dart';
 
 class AppWidget extends StatelessWidget {
@@ -10,10 +11,11 @@ class AppWidget extends StatelessWidget {
     return MaterialApp(
       title: 'Tá Caro?',
       theme: ThemeData(primarySwatch: Colors.green),
-      initialRoute: '/splash',
+      initialRoute: '/login',
       routes: {
         '/splash': (context) => SplashPage(),
         '/login': (context) => LoginPage(),
+        '/create-account': (context) => CreateAccountPage(),
       },
     );
   }
