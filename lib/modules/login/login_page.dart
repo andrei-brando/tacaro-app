@@ -14,12 +14,41 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final controller = LoginController();
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  @override
+  void initState() {
+    controller.addListener(() {
+      controller.state.when(
+        success: (value) => Navigator.pushNamed(context, '/home'),
+        // error: (message, _) => _scaffoldKey.currentState!.showBottomSheet(
+        //   (context) => BottomSheet(
+        //     onClosing: () {},
+        //     builder: (context) => Container(
+        //       child: Text(message),
+        //     ),
+        //   ),
+        // ),
+        error: (message, _) => print(message),
+        loading: () => print('loading'),
+        orElse: () {},
+      );
+    });
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
 
     return Scaffold(
+      key: _scaffoldKey,
       backgroundColor: AppTheme.colors.background,
       body: SingleChildScrollView(
         child: Container(
@@ -60,17 +89,27 @@ class _LoginPageState extends State<LoginPage> {
                     },
                   ),
                   SizedBox(height: 14),
-                  Button(
-                    label: 'Entrar',
-                    onTap: () => controller.login(),
-                  ),
-                  SizedBox(height: 48),
-                  Button(
-                    label: 'Criar Conta',
-                    type: ButtonType.outline,
-                    onTap: () => Navigator.pushNamed(
-                      context,
-                      '/create-account',
+                  AnimatedBuilder(
+                    animation: controller,
+                    builder: (_, __) => controller.state.when(
+                      loading: () => CircularProgressIndicator(),
+                      orElse: () => Column(
+                        children: [
+                          Button(
+                            label: 'Entrar',
+                            onTap: () => controller.login(),
+                          ),
+                          SizedBox(height: 48),
+                          Button(
+                            label: 'Criar Conta',
+                            type: ButtonType.outline,
+                            onTap: () => Navigator.pushNamed(
+                              context,
+                              '/create-account',
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ],

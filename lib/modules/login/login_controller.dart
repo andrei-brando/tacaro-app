@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:tacaro/shared/utils/state.dart';
 
-class LoginController {
+class LoginController extends ChangeNotifier {
+  AppState state = AppState.empty();
+
   String _email = '';
   String _password = '';
   final formKey = GlobalKey<FormState>();
@@ -18,9 +21,23 @@ class LoginController {
     return true;
   }
 
-  void login() {
+  void update(AppState state) {
+    this.state = state;
+    notifyListeners();
+  }
+
+  Future<void> login() async {
     if (validate()) {
-      print('pode chamar o backend');
+      try {
+        update(AppState.loading());
+
+        await Future.delayed(Duration(seconds: 4));
+        update(AppState.error('não foi possível fazer login'));
+
+        // update(AppState.success<String>('usuário logado'));
+      } catch (e) {
+        update(AppState.error('não foi possível fazer login'));
+      }
     }
   }
 }
