@@ -32,9 +32,8 @@ class LoginController extends ChangeNotifier {
         update(AppState.loading());
 
         await Future.delayed(Duration(seconds: 4));
-        update(AppState.error('não foi possível fazer login'));
 
-        // update(AppState.success<String>('usuário logado'));
+        update(AppState.success<String>('usuário logado'));
       } catch (e) {
         update(AppState.error('não foi possível fazer login'));
       }

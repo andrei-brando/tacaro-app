@@ -19,7 +19,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
   void initState() {
     controller.addListener(() {
       controller.state.when(
-        success: (data) => print(data),
+        success: (value) => Navigator.pushNamed(context, '/home'),
         // error: (message, _) => _scaffoldKey.currentState!.showBottomSheet(
         //   (context) => BottomSheet(
         //     onClosing: () {},
