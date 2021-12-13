@@ -16,6 +16,32 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
   final CreateAccountController controller = CreateAccountController();
 
   @override
+  void initState() {
+    controller.addListener(() {
+      controller.state.when(
+        success: (data) => print(data),
+        // error: (message, _) => _scaffoldKey.currentState!.showBottomSheet(
+        //   (context) => BottomSheet(
+        //     onClosing: () {},
+        //     builder: (context) => Container(
+        //       child: Text(message),
+        //     ),
+        //   ),
+        // ),
+        error: (message, _) => print(message),
+        orElse: () {},
+      );
+    });
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
 
@@ -87,9 +113,20 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                     },
                   ),
                   SizedBox(height: 14),
-                  Button(
-                    label: 'Criar Conta',
-                    onTap: () => controller.create(),
+                  AnimatedBuilder(
+                    animation: controller,
+                    builder: (_, __) => controller.state.when(
+                      loading: () => Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          CircularProgressIndicator(),
+                        ],
+                      ),
+                      orElse: () => Button(
+                        label: 'Criar Conta',
+                        onTap: () => controller.create(),
+                      ),
+                    ),
                   ),
                 ],
               ),
