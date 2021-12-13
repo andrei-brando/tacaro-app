@@ -46,19 +46,19 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   SizedBox(height: 18),
                   InputText(
-                      label: 'Senha',
-                      hint: 'Digite sua senha',
-                      obscure: true,
-                      onChanged: (value) =>
-                          controller.onChange(password: value),
-                      validator: (value) {
-                        if (value != null) {
-                          return value.length >= 6
-                              ? null
-                              : 'Digite uma senha mais forte';
-                        }
-                        return 'Senha deve ser preenchida';
-                      }),
+                    label: 'Senha',
+                    hint: 'Digite sua senha',
+                    obscure: true,
+                    onChanged: (value) => controller.onChange(password: value),
+                    validator: (value) {
+                      if (value != null) {
+                        return value.length >= 6
+                            ? null
+                            : 'Digite uma senha mais forte';
+                      }
+                      return 'Senha deve ser preenchida';
+                    },
+                  ),
                   SizedBox(height: 14),
                   Button(
                     label: 'Entrar',
