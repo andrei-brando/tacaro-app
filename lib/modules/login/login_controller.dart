@@ -15,7 +15,7 @@ class LoginController extends ChangeNotifier {
 
   void onChange({String? email, String? password}) {
     this._email = email ?? this._email;
-    this._email = password ?? this._password;
+    this._password = password ?? this._password;
   }
 
   bool validate() {
